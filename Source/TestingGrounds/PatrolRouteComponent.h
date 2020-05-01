@@ -6,7 +6,9 @@
 #include "Components/ActorComponent.h"
 #include "PatrolRouteComponent.generated.h"
 
-
+/** 
+ * A Component that can be added into actors that makes the actor have waypoint navigation
+ */
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class TESTINGGROUNDS_API UPatrolRouteComponent : public UActorComponent
 {
