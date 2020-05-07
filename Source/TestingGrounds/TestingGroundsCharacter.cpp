@@ -8,6 +8,7 @@
 #include "GameFramework/InputSettings.h"
 #include "HeadMountedDisplayFunctionLibrary.h"
 #include "Kismet/GameplayStatics.h"
+#include "Gun.h"
 #include "MotionControllerComponent.h"
 #include "XRMotionControllerBase.h" // for FXRMotionControllerBase::RightHandSourceId
 
@@ -49,10 +50,17 @@ void ATestingGroundsCharacter::BeginPlay()
 	// Call the base class  
 	Super::BeginPlay();
 
-	//Attach gun mesh component to Skeleton, doing it here because the skeleton is not yet created in the constructor
+	//Spawning the Gun and attaching to it done here
+	if (!GunBlueprint) {
+		UE_LOG(LogTemp, Error, TEXT("Gun Blueprint not found. Fix Immediately!"));
+		return;
+	}
+	//Spawning Gun
+	Gun = GetWorld()->SpawnActor<AGun>(GunBlueprint);
 
-	//? Find how to do in Gun.CPP
-	//FP_Gun->AttachToComponent(Mesh1P, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("GripPoint"));
+	//Attaching SpawnedGun to MeshComponent
+	Gun->AttachToComponent(Mesh1P, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("GripPoint"));
+
 
 }
 

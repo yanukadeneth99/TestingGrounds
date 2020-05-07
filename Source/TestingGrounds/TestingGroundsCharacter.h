@@ -41,6 +41,14 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 	uint32 bUsingMotionControllers : 1;
 
+	/** Select the Gun */
+	UPROPERTY(EditDefaultsOnly, Category = Gun)
+	TSubclassOf<class AGun> GunBlueprint;
+
+private:
+
+	AGun* Gun;
+
 protected:
 
 	/** Handles moving forward/backward */
