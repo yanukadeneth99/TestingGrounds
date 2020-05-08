@@ -16,7 +16,6 @@ AGun::AGun() {
 
 	// Create a gun mesh component
 	FP_Gun = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("FP_Gun"));
-	FP_Gun->SetOnlyOwnerSee(true);			// only the owning player will see this mesh
 	FP_Gun->bCastDynamicShadow = false;
 	FP_Gun->CastShadow = false;
 	// FP_Gun->SetupAttachment(Mesh1P, TEXT("GripPoint"));
@@ -24,7 +23,7 @@ AGun::AGun() {
 
 	FP_MuzzleLocation = CreateDefaultSubobject<USceneComponent>(TEXT("MuzzleLocation"));
 	FP_MuzzleLocation->SetupAttachment(FP_Gun);
-	FP_MuzzleLocation->SetRelativeLocation(FVector(0.2f, 48.4f, -10.6f));
+	FP_MuzzleLocation->SetRelativeLocation(FVector(0.2f, 71.724091f, 11.299643f));
 }
 
 // Called when the game starts or when spawned
@@ -55,6 +54,7 @@ void AGun::OnFire() {
 
 			// spawn the projectile at the muzzle
 			World->SpawnActor<ATestingGroundsProjectile>(ProjectileClass, SpawnLocation, SpawnRotation, ActorSpawnParams);
+			UE_LOG(LogTemp, Warning, TEXT("FIRED"));
 		}
 	}
 

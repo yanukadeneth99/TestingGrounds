@@ -26,7 +26,7 @@ ATestingGroundsCharacter::ATestingGroundsCharacter()
 	BaseTurnRate = 45.f;
 	BaseLookUpRate = 45.f;
 
-	// Create a CameraComponent	
+	// Create a CameraComponent
 	FirstPersonCameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("FirstPersonCamera"));
 	FirstPersonCameraComponent->SetupAttachment(GetCapsuleComponent());
 	FirstPersonCameraComponent->RelativeLocation = FVector(-39.56f, 1.75f, 64.f); // Position the camera
@@ -41,17 +41,18 @@ ATestingGroundsCharacter::ATestingGroundsCharacter()
 	Mesh1P->RelativeRotation = FRotator(1.9f, -19.19f, 5.2f);
 	Mesh1P->RelativeLocation = FVector(-0.5f, -4.4f, -155.7f);
 
-	// Note: The ProjectileClass and the skeletal mesh/anim blueprints for Mesh1P, FP_Gun, and VR_Gun 
+	// Note: The ProjectileClass and the skeletal mesh/anim blueprints for Mesh1P, FP_Gun, and VR_Gun
 	// are set in the derived blueprint asset named MyCharacter to avoid direct content references in C++.
 }
 
 void ATestingGroundsCharacter::BeginPlay()
 {
-	// Call the base class  
+	// Call the base class
 	Super::BeginPlay();
 
 	//Spawning the Gun and attaching to it done here
-	if (!GunBlueprint) {
+	if (!GunBlueprint)
+	{
 		UE_LOG(LogTemp, Error, TEXT("Gun Blueprint not found. Fix Immediately!"));
 		return;
 	}
@@ -60,14 +61,12 @@ void ATestingGroundsCharacter::BeginPlay()
 
 	//Attaching SpawnedGun to MeshComponent
 	Gun->AttachToComponent(Mesh1P, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("GripPoint"));
-
-
 }
 
 //////////////////////////////////////////////////////////////////////////
 // Input
 
-void ATestingGroundsCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
+void ATestingGroundsCharacter::SetupPlayerInputComponent(class UInputComponent *PlayerInputComponent)
 {
 	// set up gameplay key bindings
 	check(PlayerInputComponent);
@@ -77,7 +76,7 @@ void ATestingGroundsCharacter::SetupPlayerInputComponent(class UInputComponent* 
 	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
 
 	// Bind fire event
-	//PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &ATestingGroundsCharacter::OnFire);
+	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &ATestingGroundsCharacter::FireGun);
 
 	// Enable touchscreen input
 	EnableTouchscreenMovement(PlayerInputComponent);
@@ -97,6 +96,11 @@ void ATestingGroundsCharacter::SetupPlayerInputComponent(class UInputComponent* 
 	PlayerInputComponent->BindAxis("LookUpRate", this, &ATestingGroundsCharacter::LookUpAtRate);
 }
 
+void ATestingGroundsCharacter::FireGun()
+{
+	Gun->OnFire();
+}
+
 void ATestingGroundsCharacter::BeginTouch(const ETouchIndex::Type FingerIndex, const FVector Location)
 {
 	if (TouchItem.bIsPressed == true)
@@ -105,7 +109,7 @@ void ATestingGroundsCharacter::BeginTouch(const ETouchIndex::Type FingerIndex, c
 	}
 	if ((FingerIndex == TouchItem.FingerIndex) && (TouchItem.bMoved == false))
 	{
-		//OnFire();
+		Gun->OnFire();
 	}
 	TouchItem.bIsPressed = true;
 	TouchItem.FingerIndex = FingerIndex;
@@ -190,7 +194,7 @@ void ATestingGroundsCharacter::LookUpAtRate(float Rate)
 	AddControllerPitchInput(Rate * BaseLookUpRate * GetWorld()->GetDeltaSeconds());
 }
 
-bool ATestingGroundsCharacter::EnableTouchscreenMovement(class UInputComponent* PlayerInputComponent)
+bool ATestingGroundsCharacter::EnableTouchscreenMovement(class UInputComponent *PlayerInputComponent)
 {
 	if (FPlatformMisc::SupportsTouchInput() || GetDefault<UInputSettings>()->bUseMouseForTouch)
 	{
@@ -201,6 +205,6 @@ bool ATestingGroundsCharacter::EnableTouchscreenMovement(class UInputComponent* 
 		//PlayerInputComponent->BindTouch(EInputEvent::IE_Repeat, this, &ATestingGroundsCharacter::TouchUpdate);
 		return true;
 	}
-	
+
 	return false;
 }

@@ -28,9 +28,6 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	/** Fires a projectile. */
-	void OnFire();
-
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -50,5 +47,8 @@ public:
 	/** Animation Instance to play when gun fires */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animation)
 	UAnimInstance* AnimInstance;
+
+	/** Fires a projectile. */
+	void OnFire(); //! This function is called from the TestingGroundsCharacter
 
 };

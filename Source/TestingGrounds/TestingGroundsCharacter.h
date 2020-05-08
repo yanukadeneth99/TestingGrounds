@@ -49,6 +49,8 @@ private:
 
 	AGun* Gun;
 
+	void FireGun();
+
 protected:
 
 	/** Handles moving forward/backward */
