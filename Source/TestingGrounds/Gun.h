@@ -49,6 +49,6 @@ public:
 	UAnimInstance* AnimInstance;
 
 	/** Fires a projectile. */
-	void OnFire(); //! This function is called from the TestingGroundsCharacter
+	void OnFire(); //* This function is called from the TestingGroundsCharacter
 
 };

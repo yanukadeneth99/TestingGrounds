@@ -23,7 +23,8 @@ AGun::AGun() {
 
 	FP_MuzzleLocation = CreateDefaultSubobject<USceneComponent>(TEXT("MuzzleLocation"));
 	FP_MuzzleLocation->SetupAttachment(FP_Gun);
-	FP_MuzzleLocation->SetRelativeLocation(FVector(0.2f, 71.724091f, 11.299643f));
+	FP_MuzzleLocation->SetRelativeLocation(FVector(0.200007f, 71.724091f, 11.299643f));
+	FP_MuzzleLocation->SetRelativeRotation(FRotator(0.0f,0.0f, 90.0f));
 }
 
 // Called when the game starts or when spawned
