@@ -1,0 +1,8 @@
+-If you can see the enemy, shoot.
+
+-If you can see the enemy, you are not in range, move towards player.
+
+-If you SAW the enemy and not anymore, then you move to the last seen player location and wait there few seconds. 
+   Then go into patrolling
+
+-If you cannot see the enemy, you patrol
