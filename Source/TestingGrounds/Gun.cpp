@@ -39,7 +39,7 @@ void AGun::Tick(float DeltaTime) {
 
 }
 
-void AGun::OnFire() {
+void AGun::FireProjectile() {
 	// try and fire a projectile
 	if (ProjectileClass != NULL) {
 
@@ -55,7 +55,6 @@ void AGun::OnFire() {
 
 			// spawn the projectile at the muzzle
 			World->SpawnActor<ATestingGroundsProjectile>(ProjectileClass, SpawnLocation, SpawnRotation, ActorSpawnParams);
-			UE_LOG(LogTemp, Warning, TEXT("FIRED"));
 		}
 	}
 

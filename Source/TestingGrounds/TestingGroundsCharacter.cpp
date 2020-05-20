@@ -101,7 +101,7 @@ void ATestingGroundsCharacter::SetupPlayerInputComponent(class UInputComponent *
 
 void ATestingGroundsCharacter::FireGun()
 {
-	Gun->OnFire();
+	Gun->FireProjectile();
 }
 
 void ATestingGroundsCharacter::BeginTouch(const ETouchIndex::Type FingerIndex, const FVector Location)
@@ -112,7 +112,7 @@ void ATestingGroundsCharacter::BeginTouch(const ETouchIndex::Type FingerIndex, c
 	}
 	if ((FingerIndex == TouchItem.FingerIndex) && (TouchItem.bMoved == false))
 	{
-		Gun->OnFire();
+		Gun->FireProjectile();
 	}
 	TouchItem.bIsPressed = true;
 	TouchItem.FingerIndex = FingerIndex;

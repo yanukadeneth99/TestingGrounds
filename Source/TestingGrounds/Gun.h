@@ -51,7 +51,7 @@ public:
 	UAnimInstance* AnimInstance;
 
 	/** Fires a projectile. */
-	UFUNCTION(BlueprintCallable, Category = Fire)
-	void OnFire(); //* This function is called from the TestingGroundsCharacter and NPC
+	UFUNCTION(Category = Fire)
+	void FireProjectile();
 
 };
