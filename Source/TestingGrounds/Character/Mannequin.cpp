@@ -81,5 +81,5 @@ void AMannequin::SetupGun() {
 	GunRef->AttachToComponent(FPMesh, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("GripPoint"));
 
 	//Setup Animation Instance
-	GunRef->AnimInstance = FPMesh->GetAnimInstance();
+	GunRef->AnimInstance = GetMesh()->GetAnimInstance();
 }
