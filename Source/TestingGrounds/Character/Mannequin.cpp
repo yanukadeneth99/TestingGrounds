@@ -38,7 +38,6 @@ void AMannequin::BeginPlay() {
 
 	SetupGun();
 
-	//InputComponent->BindAction("Fire", IE_Pressed, GunRef, &AGun::FireProjectile);
 }
 
 // Called every frame
@@ -80,6 +79,8 @@ void AMannequin::SetupGun() {
 	// Attach the spawned gun into the mesh
 	GunRef->AttachToComponent(FPMesh, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("GripPoint"));
 
-	//Setup Animation Instance
-	GunRef->AnimInstance = GetMesh()->GetAnimInstance();
+	//Setup Animation Instances
+	GunRef->FPAnimInstance = FPMesh->GetAnimInstance();
+	GunRef->TPAnimInstance = GetMesh()->GetAnimInstance();
+
 }

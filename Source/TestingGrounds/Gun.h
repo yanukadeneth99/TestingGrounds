@@ -11,15 +11,15 @@ class TESTINGGROUNDS_API AGun : public AActor {
 
 	GENERATED_BODY()
 
-	/** Gun mesh: 1st person view (seen only by self) */
-	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
-	class USkeletalMeshComponent* FP_Gun;
+		/** Gun mesh: 1st person view (seen only by self) */
+		UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
+		class USkeletalMeshComponent* FP_Gun;
 
 protected:
 
 	/** Location on gun mesh where projectiles should spawn. */
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = Mesh)
-	class USceneComponent* FP_MuzzleLocation;
+		class USceneComponent* FP_MuzzleLocation;
 
 
 public:
@@ -36,22 +36,31 @@ public:
 
 	/** Projectile class to spawn */
 	UPROPERTY(EditDefaultsOnly, Category = Projectile)
-	TSubclassOf<class ATestingGroundsProjectile> ProjectileClass;
+		TSubclassOf<class ATestingGroundsProjectile> ProjectileClass;
 
 	/** Sound to play each time we fire */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
-	class USoundBase* FireSound;
+		class USoundBase* FireSound;
 
-	/** AnimMontage to play each time we fire */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
-	class UAnimMontage* FireAnimation;
+	/** First Person AnimMontage to play each time we fire */
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = Gameplay)
+		class UAnimMontage* FPFireMontage;
 
-	/** Animation Instance to play when gun fires */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animation)
-	UAnimInstance* AnimInstance;
+	/** Third Person AnimMontage to play each time we fire */
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = Gameplay)
+		class UAnimMontage* TPFireMontage;
 
 	/** Fires a projectile. */
-	UFUNCTION(Category = Fire)
-	void FireProjectile();
+	UFUNCTION(BlueprintCallable, Category = Fire)
+		void FireProjectile();
+
+
+	/** First Person Animation Instance to play when gun fires */
+	UPROPERTY(VisibleAnywhere, Category = Animation)
+		UAnimInstance* FPAnimInstance;
+
+	/** Third Person Animation Instance to play when gun fires */
+	UPROPERTY(VisibleAnywhere, Category = Animation)
+		UAnimInstance* TPAnimInstance;
 
 };

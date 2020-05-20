@@ -61,9 +61,6 @@ void ATestingGroundsCharacter::BeginPlay()
 
 	//Attaching SpawnedGun to MeshComponent
 	Gun->AttachToComponent(Mesh1P, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("GripPoint"));
-
-	//Setup Animation Instance //TODO Make a Setter
-	Gun->AnimInstance = Mesh1P->GetAnimInstance();
 }
 
 //////////////////////////////////////////////////////////////////////////

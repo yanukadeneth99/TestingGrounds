@@ -24,7 +24,7 @@ AGun::AGun() {
 	FP_MuzzleLocation = CreateDefaultSubobject<USceneComponent>(TEXT("MuzzleLocation"));
 	FP_MuzzleLocation->SetupAttachment(FP_Gun);
 	FP_MuzzleLocation->SetRelativeLocation(FVector(0.200007f, 71.724091f, 11.299643f));
-	FP_MuzzleLocation->SetRelativeRotation(FRotator(0.0f,0.0f, 90.0f));
+	FP_MuzzleLocation->SetRelativeRotation(FRotator(0.0f, 0.0f, 90.0f));
 }
 
 // Called when the game starts or when spawned
@@ -63,11 +63,21 @@ void AGun::FireProjectile() {
 		UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
 	}
 
-	// try and play a firing animation if specified
-	if (FireAnimation != NULL) {
-		// Get the animation object for the arms mesh
-		if (AnimInstance != NULL) {
-			AnimInstance->Montage_Play(FireAnimation, 1.f);
+	// Try and play the FP Firing Montage if specified
+	if (FPFireMontage != nullptr) {
+
+		// Get the First Person Animation Instance
+		if (FPAnimInstance != nullptr) {
+			FPAnimInstance->Montage_Play(FPFireMontage, 1.f);
+		}
+	}
+
+	// Try and play the TP Firing Montage if specified
+	if (TPFireMontage != NULL) {
+
+		// Get the Third Person Animation Instance
+		if (TPAnimInstance != NULL) {
+			TPAnimInstance->Montage_Play(TPFireMontage, 1.f);
 		}
 	}
 }

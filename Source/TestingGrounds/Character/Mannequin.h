@@ -10,23 +10,23 @@ UCLASS()
 class TESTINGGROUNDS_API AMannequin : public ACharacter {
 	GENERATED_BODY()
 
-	/* First Person Camera */
-	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = Camera)
-	class UCameraComponent* FPCamera;
+		/* First Person Camera */
+		UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = Camera)
+		class UCameraComponent* FPCamera;
 
 	/* First Person Mesh (arms; seen only by self) */
 	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
-	class USkeletalMeshComponent* FPMesh;
+		class USkeletalMeshComponent* FPMesh;
 
 public:
 
 	/* Calls the fire function inside the Gun child object */
 	UFUNCTION(BlueprintCallable, Category = Firing)
-	void PullTrigger();
+		void PullTrigger();
 
 	/* Sets the gun blueprint */
 	UPROPERTY(EditDefaultsOnly, Category = Weapon)
-	TSubclassOf<class AGun> GunBlueprint;
+		TSubclassOf<class AGun> GunBlueprint;
 
 
 	// Sets default values for this character's properties
