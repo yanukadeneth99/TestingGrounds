@@ -43,6 +43,9 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	// Called to attached the gun to the Third Person mesh on Death
+	virtual void UnPossessed() override;
+
 private:
 
 	// Instance of the gun

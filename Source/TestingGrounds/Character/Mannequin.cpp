@@ -37,7 +37,14 @@ void AMannequin::BeginPlay() {
 	Super::BeginPlay();
 
 	SetupGun();
+}
 
+// Called to attached the gun to the Third Person mesh on Death
+void AMannequin::UnPossessed() {
+	Super::UnPossessed();
+
+	if (!(GunRef == nullptr))
+		GunRef->AttachToComponent(GetMesh(), FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("GripPoint"));
 }
 
 // Called every frame
@@ -58,7 +65,7 @@ void AMannequin::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent
 
 void AMannequin::PullTrigger() {
 	if (GunRef == nullptr) {
-		UE_LOG(LogTemp, Error, TEXT("Gun not Set in Blueprint - Mannequin.cpp,55"));
+		UE_LOG(LogTemp, Error, TEXT("Gun not Set in Blueprint - Mannequin.cpp,68"));
 		return;
 	}
 
@@ -72,12 +79,17 @@ void AMannequin::SetupGun() {
 	GunRef = GetWorld()->SpawnActor<AGun>(GunBlueprint);
 
 	if (GunRef == nullptr) {
-		UE_LOG(LogTemp, Error, TEXT("Gun Setup Error, Check Blueprint - Mannequin.cpp,69"));
+		UE_LOG(LogTemp, Error, TEXT("Gun Setup Error, Check Blueprint - Mannequin.cpp,82"));
 		return;
 	}
 
 	// Attach the spawned gun into the mesh
-	GunRef->AttachToComponent(FPMesh, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("GripPoint"));
+	if (IsPlayerControlled()) {
+		GunRef->AttachToComponent(FPMesh, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("GripPoint"));
+	}
+	else {
+		GunRef->AttachToComponent(GetMesh(), FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("GripPoint"));
+	}
 
 	//Setup Animation Instances
 	GunRef->FPAnimInstance = FPMesh->GetAnimInstance();
