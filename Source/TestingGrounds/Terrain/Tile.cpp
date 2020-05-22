@@ -69,7 +69,7 @@ bool ATile::CastSphere(FVector Location, float Radius) {
 		Location,
 		Location + FVector(0,0,1),
 		FQuat::Identity,
-		ECollisionChannel::ECC_Camera,
+		ECollisionChannel::ECC_GameTraceChannel2,
 		FCollisionShape::MakeSphere(Radius)
 	);
 
