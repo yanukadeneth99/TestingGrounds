@@ -3,6 +3,7 @@
 
 #include "Tile.h"
 #include "Engine/World.h"
+#include "DrawDebugHelpers.h"
 
 
 // Sets default values
@@ -16,6 +17,8 @@ ATile::ATile() {
 void ATile::BeginPlay() {
 	Super::BeginPlay();
 
+	CastSphere(GetActorLocation(), 300.0f);
+	CastSphere(GetActorLocation() + FVector(0,0,1000), 300.0f);
 }
 
 // Called every frame
@@ -54,4 +57,35 @@ void ATile::PlaceActor(TSubclassOf<AActor> ObjectToSpawn, int MinSpawn, int MaxS
 		SpawnedObjects.Add(SpawnedActor);
 
 	}
+}
+
+// Do a sphere cast around the actor that is spawned
+bool ATile::CastSphere(FVector Location, float Radius) {
+
+	// SweepSingleByChannel Trace
+	FHitResult HitResult;
+	bool HasHit = GetWorld()->SweepSingleByChannel(
+		HitResult,
+		Location,
+		Location + FVector(0,0,1),
+		FQuat::Identity,
+		ECollisionChannel::ECC_Camera,
+		FCollisionShape::MakeSphere(Radius)
+	);
+
+	// Draw a debug line to see the channel
+
+	FColor ResultColor = HasHit ? FColor::Red : FColor::Green;
+	DrawDebugSphere(
+		GetWorld(),
+		Location,
+		Radius,
+		40,
+		ResultColor,
+		true,
+		100.0f
+	);
+
+
+	return HasHit;
 }

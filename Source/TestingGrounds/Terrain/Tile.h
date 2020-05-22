@@ -32,4 +32,9 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+private:
+
+	// Do a sphere cast around the actor that is spawned
+	bool CastSphere(FVector Location, float Radius);
+
 };
