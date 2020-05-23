@@ -20,9 +20,13 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	// Place an Actor in a Randomly generated location within the boundaries of the tile
+	/* Use this function to spawn multiple random amount of actors which you specify per tile that is non colliding with another actor.
+	@ObjectToSpawn = The Actor Reference of the Object to be spawned in the Tile
+	@MinSpawn = Minimum Spawn value to run the random range from
+	@MaxSpawn = Maximum Spawn value to run the random range from
+	@Radius = The Radius of the SphereTrace to check if another object exists within its spawn point, and if so, move this object to another randomly generated location.*/
 	UFUNCTION(BlueprintCallable, Category = Props)
-	void PlaceActor(TSubclassOf<AActor> ObjectToSpawn, int MinSpawn, int MaxSpawn);
+	void PlaceActors(TSubclassOf<AActor> ObjectToSpawn, int MinSpawn = 1, int MaxSpawn = 1, float Radius = 700.0f);
 
 	/* Contains the number of AActor Objects spawned via the PlaceActor funtion */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Props)
@@ -34,7 +38,13 @@ public:
 
 private:
 
-	// Do a sphere cast around the actor that is spawned
-	bool CastSphere(FVector Location, float Radius);
+	// This function returns true if found a location, and false if didnt. Also returns a unique random location which doesnt collide with other actors per that Radius sent.
+	bool FindEmptyLocation(FVector &OutLocation, float Radius);
+
+	// Spawn the Actor in the specified location
+	void PlaceActor(TSubclassOf<AActor> ObjectToSpawn, FVector SpawnPoint);
+
+	// Do a sphere cast around the location and radius given to it, and returns true if it collides with another actor (Not for the ground or Trigger volumes)
+	bool CanSpawnAtLocation(FVector Location, float Radius);
 
 };
