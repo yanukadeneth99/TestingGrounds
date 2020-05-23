@@ -74,18 +74,8 @@ bool ATile::CastSphere(FVector Location, float Radius) {
 	);
 
 	// Draw a debug line to see the channel
-
 	FColor ResultColor = HasHit ? FColor::Red : FColor::Green;
-	DrawDebugSphere(
-		GetWorld(),
-		Location,
-		Radius,
-		40,
-		ResultColor,
-		true,
-		100.0f
-	);
-
+	DrawDebugCapsule(GetWorld(), Location, 0, Radius, FQuat::Identity, ResultColor, true, 100);
 
 	return HasHit;
 }
